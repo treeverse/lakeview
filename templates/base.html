@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>lakeview{% block title %}{% endblock %}</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/vendor/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/lakeview.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/">lakeview</a>
+</nav>
+
+<main role="main" class="container">
+    {% block content %}{% endblock %}
+</main><!-- /.container -->
+
+
+<div class="modal athena-modal">
+    <!-- Modal content -->
+    <p>Running Athena Query<span class="dots"></span></p>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+{%  block js %}
+    <script type="application/javascript">
+
+        var dotCounter = 0;
+        var dotElements = $('.dots');
+        setInterval(function () {
+            dotCounter++;
+            dotElements.text('.'.repeat(dotCounter % 4));
+        }, 800);
+
+        $(function () {
+            $('[data-query]').on('click', function () {
+                $('.athena-modal').show();
+            });
+
+            $('form.query-form').on('submit', function () {
+                $('.athena-modal').show();
+            });
+        });
+
+    </script>
+{%  endblock %}
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>
+    Date: {{date}}
+</h3>
+
+<hr/>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item {% if not prefix %}active{% endif %}">
+            <a href="/du?date={{date}}&delimiter={{delimiter}}&prefix=&compare={{compare_with_date if compare_with_date }}" data-query="true">
+                <code>&lt;bucket root&gt;</code>
+            </a>
+        </li>
+        {% for absolute, relative in prefix | split_path(delimiter) %}
+        <li class="breadcrumb-item {% if loop.last %}active{% endif %}">
+            <a href="/du?date={{date}}&delimiter={{delimiter}}&prefix={{absolute}}&compare={{compare_with_date if compare_with_date}}" data-query="true">
+                <code>{{relative}}</code>
+            </a>
+        </li>
+        {% endfor %}
+    </ol>
+</nav>
+
+<div>
+    <form class="form-inline query-form" method="get" action="/du">
+        <input type="hidden" name="prefix" value="{{prefix}}" />
+        <input type="hidden" name="delimiter" value="{{delimiter}}" />
+        <input type="hidden" name="date" value="{{date}}" />
+        <div class="form-group mb-2">
+            <label for="compare">Compare with </label>
+            <select class="form-control mr-2 ml-2" id="compare" name="compare">
+                <option value="" {% if not compare_with_date %}selected="selected"{% endif %}>select...</option>
+                {% for date in available_dates %}
+                <option value="{{date}}" {% if date == compare_with_date %}selected="selected"{% endif %}>{{date}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Compare</button>
+    </form>
+</div>
+
+{% if compare_with_date %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Prefix</th>
+        <th>Size</th>
+        <th>Diff</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in response %}
+    <tr>
+        <td>
+            <a href="/du?date={{date}}&delimiter={{delimiter}}&prefix={{prefix}}{{row['common_prefix']}}&compare={{compare_with_date}}" data-query="true">
+                <code>{{row['common_prefix']}}</code>
+            </a>
+        </td>
+        <td title="{{row['size_left']}} bytes">
+            {{row['size_left'] | human}}
+        </td>
+        <td title="{% if row['diff'] > 0 %}+{% endif %}{{ row['diff'] }} bytes">
+            {% if row['diff'] > 0 %}+{% endif %}{{ row['diff'] | human}}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>Prefix</th>
+        <th>Size</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in response %}
+    <tr>
+        <td>
+            <a href="/du?date={{date}}&delimiter={{delimiter}}&prefix={{prefix}}{{row['common_prefix']}}" data-query="true">
+                <code>{{row['common_prefix']}}</code>
+            </a>
+        </td>
+        <td title="{{row['size']}} bytes">
+            {{row['size'] | human}}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+
+{% endblock %}

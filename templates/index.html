@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Inventory dates</h1>
+    <table class="table">
+        {% for date in dates %}
+        <tr>
+            <td><a href="/du?date={{date}}&delimiter=/&prefix=" data-query="true">{{date}}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
