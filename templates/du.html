@@ -48,6 +48,7 @@
     <tr>
         <th>Prefix</th>
         <th>Size</th>
+        <th>Compared With</th>
         <th>Diff</th>
     </tr>
     </thead>
@@ -61,6 +62,9 @@
         </td>
         <td title="{{row['size_left']}} bytes">
             {{row['size_left'] | human}}
+        </td>
+        <td title="{{row['size_right']}} bytes">
+            {{row['size_right'] | human}}
         </td>
         <td title="{% if row['diff'] > 0 %}+{% endif %}{{ row['diff'] }} bytes">
             {% if row['diff'] > 0 %}+{% endif %}{{ row['diff'] | human}}

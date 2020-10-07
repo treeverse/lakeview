@@ -71,7 +71,7 @@ def diff_for(db: Inventory, date_left: str, date_right: str, prefix: str = '', d
     results = db.query(DU_DIFF_STMT, prefix=prefix, delimiter=delimiter, date_left=date_left, date_right=date_right)
     adjusted = []
     for r in results:
-        size_left = r.get('size_right')
+        size_left = r.get('size_left')
         size_right = r.get('size_right')
         if not size_right:
             diff = size_left
@@ -81,7 +81,7 @@ def diff_for(db: Inventory, date_left: str, date_right: str, prefix: str = '', d
             diff = int(r.get('diff') or '0')
         adjusted.append({
             'common_prefix': r.get('common_prefix'),
-            'size_left': int(r.get('size_right') or '0'),
+            'size_left': int(r.get('size_left') or '0'),
             'size_right': int(r.get('size_right') or '0'),
             'diff': diff,
         })
