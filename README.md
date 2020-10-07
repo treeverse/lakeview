@@ -11,7 +11,7 @@ lakeview uses [Athena](https://aws.amazon.com/athena/) to query [S3 Inventory Re
 
 1. Aggregate the sizes of directories* in S3, allowing you to drill down and find what is taking up space.
 1. Compare sizes between different dates - see how directories size change over time between different inventory reports.
-1. _Planned but not yet implemented:_ find the largest duplicates in your directories.
+1. _Planned but not yet implemented - _ find the largest duplicates in your directories.
 
 
 \* _S3, being an object store and not a filesystem, doesn't really have a notion of directories, but its API supports so-called "common prefixes"._
