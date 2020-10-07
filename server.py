@@ -29,6 +29,18 @@ def create_flask_app(database: str, table_name: str, output_location: str) -> Fl
     return app
 
 
+
+BANNER = """
+
+██╗      █████╗ ██╗  ██╗███████╗██╗   ██╗██╗███████╗██╗    ██╗
+██║     ██╔══██╗██║ ██╔╝██╔════╝██║   ██║██║██╔════╝██║    ██║
+██║     ███████║█████╔╝ █████╗  ██║   ██║██║█████╗  ██║ █╗ ██║
+██║     ██╔══██║██╔═██╗ ██╔══╝  ╚██╗ ██╔╝██║██╔══╝  ██║███╗██║
+███████╗██║  ██║██║  ██╗███████╗ ╚████╔╝ ██║███████╗╚███╔███╔╝
+╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝  ╚═══╝  ╚═╝╚══════╝ ╚══╝╚══╝ 
+"""
+
+
 @click.command()
 @click.option('--database', default='default', help='Name of the Athena database to use')
 @click.option('--table', default='inventory', help='Name of the Athena table containing the S3 inventory')
@@ -37,6 +49,12 @@ def create_flask_app(database: str, table_name: str, output_location: str) -> Fl
 @click.option('--port', default=5000, help='port to bind the webserver to')
 def cli(database, table, output_location, host, port):
     app = create_flask_app(database, table, output_location)
+    print(BANNER)
+    print(f'Athena database = {database}')
+    print(f'Athena table    = {table}')
+    print(f'Output location = {output_location}')
+    print(f'Listen host     = {host}')
+    print(f'Listen port     = {port}\n\n')
     serve(app, host=host, port=port)
 
 
