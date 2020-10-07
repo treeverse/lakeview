@@ -1,6 +1,6 @@
 # lakeview
 
-lakeview is a visibility tool for S3 based data lakes.
+lakeview is a visibility tool for AWS S3 based data lakes.
 
 Think of it as [ncdu](https://en.wikipedia.org/wiki/Ncdu), but for Petabyte-scale data, on S3.
 
@@ -10,8 +10,8 @@ lakeview uses [Athena](https://aws.amazon.com/athena/) to query [S3 Inventory Re
 ## What can it do?
 
 1. Aggregate the sizes of directories* in S3, allowing you to drill down and find what is taking up space.
-1. Compare sizes between different dates - see how directories change over time between different inventory reports
-1. _planned but not yet implemented:_ find largest duplicates: find the largest directories that contain duplicate data.
+1. Compare sizes between different dates - see how directories size change over time between different inventory reports.
+1. _Planned but not yet implemented:_ find the largest duplicates in your directories.
 
 
 \* _S3, being an object store and not a filesystem, doesn't really have a notion of directories, but its API supports so-called "common prefixes"._
@@ -20,14 +20,14 @@ All capabilities are provided in both a human consumable web interface and a mac
 
 ## What does it look like?
 
-#### size report:
+#### Size report:
 
 <p align="center">
   <img src="du.png"/>
 </p>
 
 
-#### size diff:
+#### Size diff:
 
 <p align="center">
   <img src="compare.png"/>
@@ -36,8 +36,8 @@ All capabilities are provided in both a human consumable web interface and a mac
 
 ## Quickstart
 
-1. make sure you have an [S3 inventory set up](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html#storage-inventory-how-to-set-up) (preferably as Parquet or ORC)
-1. make sure that table is [registered in Athena](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html#storage-inventory-athena-query)
+1. Ensure you have an [S3 inventory set up](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html#storage-inventory-how-to-set-up) (preferably as Parquet or ORC)
+1. Make sure that table is [registered in Athena](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html#storage-inventory-athena-query)
 1. Run lakeview as a standalone Docker container:
    
    ```shell script
@@ -48,7 +48,7 @@ All capabilities are provided in both a human consumable web interface and a mac
            --output-location <s3 uri>
    ```
    
-   where `<athena table name>` is the name you gave in step 2, and `<s3 uri>` is a location in S3 where Athena could store its results (e.g. `s3://my-bucket/athena/`)
+   note `<athena table name>` is the name you gave in step 2, and `<s3 uri>` is a location in S3 where Athena could store its results (e.g. `s3://my-bucket/athena/`)
    
 1. Open [http://localhost:5000/](http://localhost:5000/) and start exploring
 
@@ -67,17 +67,17 @@ To get results as JSON - add `Accept: application/json` to your request headers,
 
 `date` - date string corresponding to the inventory you'd like to query (YYYY-MM-DD-00-00) is S3's default structure
 
-`compare (optional)` - another date string. If present, lakeview will calculate a diff between the two reports for every common prefix and will order the results based on the largest absolute diff
+`compare (optional)` - another date string. If present, lakeview will calculate a diff between the two reports for every common prefix and will sort the results based on the largest absolute diff
 
 #### Example
 
-request:
+Request:
 
 ```
 http://localhost:5000/du?prefix=&delimiter=%2F&date=2020-08-23-00-00&compare=2020-08-22-00-00&json
 ```
 
-response:
+Response:
 
 ```json
 {
@@ -118,7 +118,7 @@ Clone the repo, and from the root directory run:
 $ pip install r requirements.txt
 ```
 
-and run it:
+and run this:
 
 ```
 $ python server.py \
