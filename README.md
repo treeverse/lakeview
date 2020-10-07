@@ -62,8 +62,11 @@ To get results as JSON - add `Accept: application/json` to your request headers,
 #### Query Parameters: 
 
 `prefix (default: "")` - return objects and directories[1] starting with the given prefix
+
 `delimiter (default: "/")` - use this character as delimiter to group objects under a common prefix
+
 `date` - date string corresponding to the inventory you'd like to query (YYYY-MM-DD-00-00) is S3's default structure
+
 `compare (optional)` - another date string. If present, lakeview will calculate a diff between the two reports for every common prefix and will order the results based on the largest absolute diff
 
 #### Example
