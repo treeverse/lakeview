@@ -43,7 +43,7 @@ All capabilities are provided in both a human consumable web interface and a mac
    ```shell script
    docker run -it -p 5000:5000 \
        -v $HOME/.aws:/home/lakeview/.aws \
-       lakeview:0.1.0 \
+       treeverse/lakeview:0.1.0 \
            --table <athena table name> \
            --output-location <s3 uri>
    ```
