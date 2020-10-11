@@ -37,7 +37,7 @@ All capabilities are provided in both a human consumable web interface and a mac
 ## Quickstart
 
 1. Ensure you have an [S3 inventory set up](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html#storage-inventory-how-to-set-up) (preferably as Parquet or ORC)
-1. Make sure that table is [registered in Athena](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html#storage-inventory-athena-query)
+1. Verify the table is [registered in Athena](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-inventory.html#storage-inventory-athena-query)
 1. Run lakeview as a standalone Docker container:
    
    ```shell script
