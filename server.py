@@ -6,6 +6,7 @@ from waitress import serve
 import loader
 from controllers import AthenaController
 from view import register_filters
+from version import get_latest_version
 
 
 def create_flask_app(database: str, table_name: str, output_location: str) -> Flask:
@@ -48,6 +49,7 @@ BANNER = """
 @click.option('--host', default='0.0.0.0', help='host to bind the webserver to')
 @click.option('--port', default=5000, help='port to bind the webserver to')
 def cli(database, table, output_location, host, port):
+    latest_version = get_latest_version()
     app = create_flask_app(database, table, output_location)
     print(BANNER)
     print(f'Athena database = {database}')
@@ -55,6 +57,8 @@ def cli(database, table, output_location, host, port):
     print(f'Output location = {output_location}')
     print(f'Listen host     = {host}')
     print(f'Listen port     = {port}\n\n')
+    if latest_version:
+        print(f'[WARNING] a newer version exists: {latest_version}\n')
     serve(app, host=host, port=port)
 
 
