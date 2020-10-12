@@ -115,7 +115,7 @@ Response:
 Clone the repo, and from the root directory run:
 
 ```
-$ pip install r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 and run this:
