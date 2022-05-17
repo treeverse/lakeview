@@ -8,7 +8,7 @@ import requests
 
 DEV_VERSION = "dev"
 VERSION = os.getenv("LAKEVIEW_VERSION", "dev")
-VERSION_URI = "http://stats.treeverse.io/lakeview"
+VERSION_URI = "https://stats.treeverse.io/lakeview"
 VERSION_UA = "lakeview_version_check"
 RELEASES_URL = "https://hub.docker.com/repository/docker/treeverse/lakeview"
 
