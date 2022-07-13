@@ -18,8 +18,8 @@ from (
     where
         dt = '{date}'
         and key like '{prefix}%'
-        and is_latest = true
-        and is_delete_marker = false
+        and (is_latest = true or is_latest is null)
+        and (is_delete_marker = false or is_delete_marker is null)
 )
 group by common_prefix
 order by size desc
@@ -42,13 +42,13 @@ from (
     from {table_name}
     where
          key like '{prefix}%'
-        and is_latest = true
-        and is_delete_marker = false
+        and (is_latest = true or is_latest is null)
+        and (is_delete_marker = false or is_delete_marker is null)
 )
 group by common_prefix,dt)
 
 select
-    d1.common_prefix,
+    common_prefix,
     d1.total as size_left,
     d2.total as size_right,
     d1.total - d2.total as diff
