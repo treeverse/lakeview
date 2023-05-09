@@ -87,6 +87,7 @@ class AthenaController(object):
             return cached_dates
         res = self.db.query('SHOW PARTITIONS {table_name}')
         cached_dates = list([f.get('row').lstrip('dt=') for f in res])
+        cached_dates.sort()
         self.cache.set('inventory_dates', cached_dates, timeout=600)
         return cached_dates
 

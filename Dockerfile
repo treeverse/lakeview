@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.11-slim-bullseye
 
 # Setup lakeview user
 WORKDIR /home/lakeview/app

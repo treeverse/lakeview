@@ -49,6 +49,22 @@ All capabilities are provided in both a human consumable web interface and a mac
    ```
    
    note `<athena table name>` is the name you gave in step 2, and `<s3 uri>` is a location in S3 where Athena could store its results (e.g. `s3://my-bucket/athena/`)
+
+   In the following example we are using [aws-vault](https://github.com/99designs/aws-vault) to pass in the AWS credentials:
+
+  ```shell script
+  awv docker run -it --rm -p 5555:5000 \
+        -e AWS_DEFAULT_REGION -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -e AWS_SECURITY_TOKEN \
+        treeverse/lakeview \
+          --table <athena table name> \
+          --output-location <s3 uri>
+  ```
+
+  where `awv` is an alias in your ~/.bashrc or ~/.zshrc file:
+
+  ```
+  alias awv="aws-vault exec <username> --duration=4h -- "
+  ```
    
 1. Open [http://localhost:5000/](http://localhost:5000/) and start exploring
 

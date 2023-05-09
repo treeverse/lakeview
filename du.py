@@ -83,6 +83,6 @@ def diff_for(db: Inventory, date_left: str, date_right: str, prefix: str = '', d
             'common_prefix': r.get('common_prefix'),
             'size_left': int(r.get('size_left') or '0'),
             'size_right': int(r.get('size_right') or '0'),
-            'diff': diff,
+            'diff': int(diff),
         })
     return adjusted
