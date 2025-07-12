@@ -1,7 +1,8 @@
-boto3==1.15.13
-click==8.0.0
-Flask==2.3.2
-Flask-Caching==1.9.0
-waitress==2.1.2
-packaging==20.4
+boto3==1.35.64
+click==8.1.7
+Flask==3.1.0
+Flask-Caching==2.3.0
+waitress==3.0.2
+packaging==24.2
 requests==2.32.4
+
