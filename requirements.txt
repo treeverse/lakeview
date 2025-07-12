@@ -5,4 +5,3 @@ Flask-Caching==2.3.0
 waitress==3.0.2
 packaging==24.2
 requests==2.32.4
-
